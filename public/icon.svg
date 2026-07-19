@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <rect width="512" height="512" rx="128" fill="#064e3b"/>
+  <circle cx="256" cy="256" r="180" fill="#047857"/>
+  <!-- Document Icon with checkmark or pencil in emerald/yellow -->
+  <path d="M192 144h128l64 64v160c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V176c0-17.7 14.3-32 32-32z" fill="#ffffff" />
+  <path d="M320 144v64h64" fill="none" stroke="#064e3b" stroke-width="16" stroke-linejoin="round" />
+  <path d="M224 240h64M224 288h64M224 336h48" stroke="#047857" stroke-width="20" stroke-linecap="round" />
+  <circle cx="340" cy="340" r="48" fill="#facc15" />
+  <path d="M325 340l10 10 18-18" fill="none" stroke="#064e3b" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

@@ -1,0 +1,6 @@
+{
+  "name": "Klik Beres",
+  "description": "Sistem Otomasi Dokumen Pertanggungjawaban Kegiatan Desa",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
