@@ -310,6 +310,19 @@ export default function App() {
   });
 
   const [blankRowsCount, setBlankRowsCount] = useState<number>(5);
+  const [standaloneJumlahBaris, setStandaloneJumlahBaris] = useState<number>(10);
+  const [standaloneBesaranTransport, setStandaloneBesaranTransport] = useState<number>(100000);
+
+  useEffect(() => {
+    if (standaloneDocType === "daftarHadir") {
+      setStandaloneJumlahBaris(10);
+    } else if (standaloneDocType === "tandaTerima") {
+      setStandaloneJumlahBaris(10);
+      setStandaloneBesaranTransport(100000);
+    } else if (standaloneDocType === "notulensi") {
+      setStandaloneJumlahBaris(5);
+    }
+  }, [standaloneDocType]);
 
   // --- SYNC TO LOCAL STORAGE ---
   useEffect(() => {
@@ -1925,11 +1938,42 @@ export default function App() {
 
                     // Initialize appropriate sub-structures
                     if (standaloneDocType === "notulensi") {
+                      const emptyPoints: HasilRapatPoin[] = [];
+                      const count = standaloneJumlahBaris > 0 ? standaloneJumlahBaris : 5;
+                      for (let i = 0; i < count; i++) {
+                        emptyPoints.push({ poin: "", uraian: "" });
+                      }
                       const newNotulensi: Notulensi = {
                         kegiatanId: id,
-                        hasilRapat: []
+                        hasilRapat: emptyPoints
                       };
                       setNotulensiList([...notulensiList, newNotulensi]);
+                    } else if (standaloneDocType === "daftarHadir" || standaloneDocType === "tandaTerima") {
+                      const count = standaloneJumlahBaris > 0 ? standaloneJumlahBaris : 10;
+                      const addedRows: Peserta[] = [];
+                      const isTransport = standaloneDocType === "tandaTerima";
+                      const nominal = isTransport ? standaloneBesaranTransport : 0;
+                      const tax = isTransport ? Math.round(nominal * (pph21Persen / 100)) : 0;
+                      
+                      for (let i = 0; i < count; i++) {
+                        addedRows.push({
+                          id: "peserta-mandiri-" + Date.now() + "-" + i + "-" + Math.random(),
+                          kegiatanId: id,
+                          no: i + 1,
+                          nama: "",
+                          kedudukan: "",
+                          alamat: "",
+                          penerimaan: nominal,
+                          pph21: tax,
+                          jumlahPenerimaan: nominal - tax
+                        });
+                      }
+                      setPesertaList([...pesertaList, ...addedRows]);
+                      if (standaloneDocType === "daftarHadir") {
+                        setDaftarHadirUseRealData(true);
+                      } else {
+                        setTandaTerimaUseRealData(true);
+                      }
                     }
 
                     // For transport or attendance lists, they are driven by participants (Peserta), which is empty by default but the user can add them
@@ -2130,6 +2174,107 @@ export default function App() {
                           />
                         </div>
                       </>
+                    )}
+                  </div>
+
+                  {/* CUSTOM QUANTITY AND TRANSPORT SETUP FOR STANDALONE DOCS */}
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    {standaloneDocType === "daftarHadir" && (
+                      <div className="p-4 bg-emerald-50/50 border border-emerald-100 rounded-xl">
+                        <h4 className="text-[11px] font-black text-emerald-800 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                          <Settings size={13} />
+                          Prosedur & Inisialisasi Daftar Hadir
+                        </h4>
+                        <div>
+                          <label htmlFor="standaloneJumlahBarisHadir" className="block text-xs font-bold text-slate-700 mb-1.5">
+                            Jumlah Baris Daftar Hadir (Peserta) <span className="text-red-500 font-black ml-0.5">*</span>
+                          </label>
+                          <input
+                            id="standaloneJumlahBarisHadir"
+                            type="number"
+                            min={1}
+                            max={100}
+                            value={standaloneJumlahBaris}
+                            onChange={(e) => setStandaloneJumlahBaris(Math.max(1, parseInt(e.target.value) || 0))}
+                            className="w-full md:w-1/2 border border-emerald-200 rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-slate-900 font-semibold"
+                            required
+                          />
+                          <p className="text-[10px] text-emerald-700 mt-1.5 font-medium leading-relaxed">
+                            💡 Sistem akan otomatis menghasilkan <strong>{standaloneJumlahBaris} baris kosong</strong> pada berkas Daftar Hadir baru ini agar siap diisi secara langsung atau dicetak untuk tanda tangan fisik.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {standaloneDocType === "tandaTerima" && (
+                      <div className="p-4 bg-emerald-50/50 border border-emerald-100 rounded-xl space-y-4">
+                        <h4 className="text-[11px] font-black text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+                          <Settings size={13} />
+                          Prosedur & Inisialisasi Transport
+                        </h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label htmlFor="standaloneJumlahBarisTransport" className="block text-xs font-bold text-slate-700 mb-1.5">
+                              Jumlah Baris Penerima Transport <span className="text-red-500 font-black ml-0.5">*</span>
+                            </label>
+                            <input
+                              id="standaloneJumlahBarisTransport"
+                              type="number"
+                              min={1}
+                              max={100}
+                              value={standaloneJumlahBaris}
+                              onChange={(e) => setStandaloneJumlahBaris(Math.max(1, parseInt(e.target.value) || 0))}
+                              className="w-full border border-emerald-200 rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-slate-900 font-semibold"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="standaloneBesaranTransport" className="block text-xs font-bold text-slate-700 mb-1.5">
+                              Besaran Uang Transport (Rp per Orang) <span className="text-red-500 font-black ml-0.5">*</span>
+                            </label>
+                            <input
+                              id="standaloneBesaranTransport"
+                              type="number"
+                              min={0}
+                              step={5000}
+                              value={standaloneBesaranTransport}
+                              onChange={(e) => setStandaloneBesaranTransport(Math.max(0, parseInt(e.target.value) || 0))}
+                              className="w-full border border-emerald-200 rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-slate-900 font-semibold"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <p className="text-[10px] text-emerald-700 leading-relaxed font-medium">
+                          💡 Sistem akan otomatis menghasilkan <strong>{standaloneJumlahBaris} baris data tanda terima</strong> dengan nominal uang masing-masing sebesar <strong>Rp {(standaloneBesaranTransport).toLocaleString("id-ID")}</strong> (termasuk potongan PPh 21 sebesar {pph21Persen}% secara otomatis).
+                        </p>
+                      </div>
+                    )}
+
+                    {standaloneDocType === "notulensi" && (
+                      <div className="p-4 bg-emerald-50/50 border border-emerald-100 rounded-xl">
+                        <h4 className="text-[11px] font-black text-emerald-800 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                          <Settings size={13} />
+                          Prosedur & Inisialisasi Poin Pembahasan
+                        </h4>
+                        <div>
+                          <label htmlFor="standaloneJumlahBarisNotulensi" className="block text-xs font-bold text-slate-700 mb-1.5">
+                            Jumlah Baris Poin Pembahasan / Hasil Rapat <span className="text-red-500 font-black ml-0.5">*</span>
+                          </label>
+                          <input
+                            id="standaloneJumlahBarisNotulensi"
+                            type="number"
+                            min={1}
+                            max={30}
+                            value={standaloneJumlahBaris}
+                            onChange={(e) => setStandaloneJumlahBaris(Math.max(1, parseInt(e.target.value) || 0))}
+                            className="w-full md:w-1/2 border border-emerald-200 rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-slate-900 font-semibold"
+                            required
+                          />
+                          <p className="text-[10px] text-emerald-700 mt-1.5 font-medium leading-relaxed">
+                            💡 Sistem akan otomatis menyediakan <strong>{standaloneJumlahBaris} baris poin kosong</strong> di dalam berkas Notulensi Anda sehingga Anda tinggal menuliskan ringkasan pembahasan pada masing-masing baris secara praktis.
+                          </p>
+                        </div>
+                      </div>
                     )}
                   </div>
 
