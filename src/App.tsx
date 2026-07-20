@@ -3344,7 +3344,7 @@ export default function App() {
                 </div>
 
                 {/* B. DYNAMIC SHEET RENDER PANEL (A4 Previews) */}
-                <div className={`${(detailSubTab === "dokumentasi" || detailSubTab === "notulensi" || detailSubTab === "undangan") ? "lg:col-span-12" : "lg:col-span-8"} flex justify-center w-full overflow-x-auto pb-4`}>
+                <div className={`${(detailSubTab === "dokumentasi" || detailSubTab === "notulensi" || detailSubTab === "undangan") ? "lg:col-span-12" : "lg:col-span-8"} flex justify-start md:justify-center w-full overflow-x-auto pb-4`}>
                   {detailSubTab === "undangan" && (
                     <UndanganDoc
                       instansi={instansi}
@@ -3466,12 +3466,13 @@ export default function App() {
           </div>
 
           {/* Printable document page(s) centered */}
-          <div 
-            id="printable-document-content" 
-            className={`p-4 sm:p-12 w-full ${
-              printTarget.docType === "dokumentasi" ? "max-w-[297mm]" : "max-w-[210mm]"
-            } print:max-w-none print:p-0 bg-white shadow-2xl print:shadow-none my-8 print:my-0 rounded-xl print:rounded-none flex-grow`}
-          >
+          <div className="w-full flex-grow overflow-x-auto pb-8 flex justify-start md:justify-center px-4 print:block print:w-full print:p-0 print:pb-0">
+            <div 
+              id="printable-document-content" 
+              className={`p-4 sm:p-12 ${
+                printTarget.docType === "dokumentasi" ? "w-[297mm] min-w-[297mm]" : "w-[210mm] min-w-[210mm]"
+              } print:w-full print:min-w-0 print:max-w-none print:p-0 bg-white shadow-2xl print:shadow-none my-8 print:my-0 rounded-xl print:rounded-none`}
+            >
             {printTarget.docType === "all" ? (
               <div className="space-y-0 w-full">
                 {/* Page 1: Undangan */}
@@ -3613,6 +3614,7 @@ export default function App() {
                 )}
               </div>
             )}
+            </div>
           </div>
         </div>
       )}

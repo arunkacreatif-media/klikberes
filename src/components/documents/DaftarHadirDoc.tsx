@@ -67,7 +67,7 @@ export const DaftarHadirDoc: React.FC<DaftarHadirDocProps> = ({
   }
 
   return (
-    <div className={`daftar-hadir-container bg-white text-black font-sans leading-relaxed mx-auto document-font ${isPrintPreview ? "" : "shadow-md border border-gray-200 max-w-[210mm] min-h-[297mm]"}`} style={{ width: "100%", fontSize: "11pt" }}>
+    <div className={`daftar-hadir-container document-portrait bg-white text-black font-sans leading-relaxed mx-auto document-font ${isPrintPreview ? "" : "shadow-md border border-gray-200"}`} style={{ width: "100%", fontSize: "11pt" }}>
       {/* Dynamic page print styling to enforce normal 2.54cm margins */}
       <style>{`
         @media print {

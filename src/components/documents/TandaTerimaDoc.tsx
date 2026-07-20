@@ -127,7 +127,7 @@ export const TandaTerimaDoc: React.FC<TandaTerimaDocProps> = ({
       )}
 
       {/* Printable Sheet */}
-      <div className={`tanda-terima-container bg-white text-black font-sans text-[12px] leading-relaxed mx-auto document-font ${isPrintPreview ? "" : "shadow-md border border-gray-200 max-w-[210mm] min-h-[297mm]"}`} style={{ width: "100%" }}>
+      <div className={`tanda-terima-container document-portrait bg-white text-black font-sans text-[12px] leading-relaxed mx-auto document-font ${isPrintPreview ? "" : "shadow-md border border-gray-200"}`} style={{ width: "100%" }}>
         {/* Dynamic page print styling - margin normal 2.54cm di semua sisi */}
         <style>{`
           @media print {

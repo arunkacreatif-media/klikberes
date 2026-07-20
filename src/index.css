@@ -152,3 +152,17 @@
   background: #94a3b8;
 }
 
+/* Screen view configurations to maintain physical A4 proportions on all viewports without distortions */
+@media screen {
+  .document-portrait {
+    width: 210mm !important;
+    min-width: 210mm !important;
+    min-height: 297mm !important;
+  }
+  .document-landscape {
+    width: 297mm !important;
+    min-width: 297mm !important;
+    min-height: 210mm !important;
+  }
+}
+

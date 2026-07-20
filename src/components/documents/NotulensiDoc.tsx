@@ -294,7 +294,7 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
 
   if (isPrintPreview) {
     return (
-      <div className="document-container notulensi-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font" style={{ width: "100%" }}>
+      <div className="document-container notulensi-container document-portrait bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font" style={{ width: "100%" }}>
         {renderDocumentContent()}
       </div>
     );
@@ -444,8 +444,8 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
       </div>
 
       {/* 2. RIGHT COLUMN: Preview Sheet */}
-      <div className="lg:col-span-7 flex justify-center w-full">
-        <div className="document-container notulensi-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font shadow-md border border-gray-200 max-w-[210mm] min-h-[297mm]" style={{ width: "100%" }}>
+      <div className="lg:col-span-7 flex justify-start md:justify-center w-full overflow-x-auto pb-4">
+        <div className="document-container notulensi-container document-portrait bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font shadow-md border border-gray-200" style={{ width: "100%" }}>
           {renderDocumentContent()}
         </div>
       </div>

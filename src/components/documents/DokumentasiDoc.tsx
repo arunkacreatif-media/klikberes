@@ -82,7 +82,7 @@ export const DokumentasiDoc: React.FC<DokumentasiDocProps> = ({
       <div
         className={`document-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font ${
           isPrintPreview ? "" : "shadow-md border border-gray-200"
-        } ${isLandscape ? "w-full max-w-[297mm] min-h-[210mm]" : "w-full max-w-[210mm] min-h-[297mm]"}`}
+        } ${isLandscape ? "document-landscape w-full max-w-[297mm] min-h-[210mm]" : "document-portrait w-full max-w-[210mm] min-h-[297mm]"}`}
         style={{ breakInside: "avoid" }}
       >
         {/* Dynamic page print styling for orientation and normal margins */}

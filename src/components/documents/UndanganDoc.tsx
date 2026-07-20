@@ -25,7 +25,7 @@ export const UndanganDoc: React.FC<UndanganDocProps> = ({
   const kotaKab = instansi.kabupaten || "Probolinggo";
 
   return (
-    <div className={`document-container bg-white text-black font-sans text-[14px] leading-relaxed mx-auto document-font ${isPrintPreview ? "" : "shadow-md border border-gray-200 max-w-[210mm] min-h-[297mm]"}`} style={{ width: "100%" }}>
+    <div className={`document-container document-portrait bg-white text-black font-sans text-[14px] leading-relaxed mx-auto document-font ${isPrintPreview ? "" : "shadow-md border border-gray-200"}`} style={{ width: "100%" }}>
       {/* Kop Surat */}
       <KopSurat instansi={instansi} />
 
