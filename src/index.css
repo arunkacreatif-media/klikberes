@@ -113,6 +113,9 @@
   .tanda-terima-container {
     padding: 2cm !important;
   }
+  .notulensi-container {
+    padding: 1.2cm 1.5cm !important;
+  }
 }
 
 /* Document Page Wrapper with exact standard A4 "Normal" margin (2.54 cm / 1 inch) */
@@ -122,6 +125,9 @@
   padding: 2.54cm !important;
   background-color: white !important;
   color: black !important;
+}
+.notulensi-container {
+  padding: 1.5cm 1.8cm !important;
 }
 
 /* Force Arial on printable documents */

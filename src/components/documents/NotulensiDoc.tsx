@@ -123,20 +123,20 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
   const renderDocumentContent = () => (
     <>
       {/* Kop Surat */}
-      <KopSurat instansi={instansi} />
+      <KopSurat instansi={instansi} className="!mb-3.5" />
 
       {/* Judul Dokumen */}
-      <div className="text-center my-6">
-        <h2 className="text-[17px] font-bold tracking-wider uppercase leading-snug text-black">
+      <div className="text-center mt-1.5 mb-1.5">
+        <h2 className="text-[15px] font-bold tracking-wider uppercase leading-snug text-black">
           NOTULENSI
         </h2>
-        <p className="text-[13px] font-mono font-medium text-black mt-0.5">
+        <p className="text-[11.5px] font-mono font-medium text-black mt-0.5">
           Nomor : {kegiatan.nomorSurat || "015/NOTE/403.401.02/2024"}
         </p>
       </div>
 
       {/* Daftar Poin A - I */}
-      <div className="my-6 space-y-2.5 text-[13px]">
+      <div className="my-2.5 space-y-0.5 text-[12px] leading-tight">
         {/* A */}
         <div className="flex items-start text-black">
           <span className="w-6 font-bold flex-shrink-0 text-left">A.</span>
@@ -229,13 +229,13 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
           </div>
         </div>
 
-        {/* Dynamic list rendering based on interactive expansion or print mode */}
+        {/* Dynamic list rendering based on interactive expansion (hidden from print to save page breaks) */}
         {pesertaList.length > 0 && (
-          <div className={`${isPesertaExpanded ? "block" : "hidden print:block"} mt-2 pl-10 text-[12px] bg-gray-50/50 p-2 rounded border border-gray-100 max-w-xl`}>
+          <div className={`${isPesertaExpanded ? "block" : "hidden"} mt-1 pl-10 text-[11.5px] bg-gray-50/50 p-2 rounded border border-gray-100 max-w-xl no-print`}>
             <ol className="list-decimal pl-4 space-y-1 text-gray-700">
               {pesertaList.map((p) => (
                 <li key={p.id} className="font-medium">
-                  {p.nama} <span className="text-[11px] text-gray-500 font-normal">({p.kedudukan})</span>
+                  {p.nama} <span className="text-[10.5px] text-gray-500 font-normal">({p.kedudukan})</span>
                 </li>
               ))}
             </ol>
@@ -251,18 +251,18 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
         </div>
 
         {/* Hasil Rapat list styled like the PDF */}
-        <div className="pl-10 mt-2 text-[13px] text-black">
+        <div className="pl-10 mt-1 text-[12px] text-black">
           {hasilRapat.length === 0 ? (
-            <p className="text-gray-400 italic font-normal">Belum ada kesimpulan hasil rapat.</p>
+            <p className="text-gray-400 italic font-normal text-xs">Belum ada kesimpulan hasil rapat.</p>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-1.5">
               {hasilRapat.map((item, index) => (
-                <div key={index} className="flex gap-2 text-justify">
+                <div key={index} className="flex gap-2 text-justify leading-tight">
                   <span className="font-bold text-black flex-shrink-0 w-4">{index + 1}.</span>
                   <div className="flex-grow">
-                    <p className="font-bold text-black">{item.poin}</p>
+                    <p className="font-bold text-black text-[12px]">{item.poin}</p>
                     {item.uraian && (
-                      <p className="font-normal text-black mt-1 pl-4 leading-relaxed whitespace-pre-line border-l-2 border-gray-100">
+                      <p className="font-normal text-black mt-0.5 pl-2.5 leading-normal whitespace-pre-line border-l border-gray-200">
                         {item.uraian}
                       </p>
                     )}
@@ -275,15 +275,15 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
       </div>
 
       {/* Footer Penandatangan */}
-      <div className="mt-16 flex justify-end break-inside-avoid">
-        <div className="text-center min-w-[250px] pr-8 text-[13px] text-black">
-          <p className="mb-1">
+      <div className="mt-5 flex justify-end break-inside-avoid">
+        <div className="text-center min-w-[250px] pr-8 text-[12px] text-black leading-tight">
+          <p className="mb-0.5">
             {kotaKab}, {tanggalIndo}
           </p>
           <p className="font-bold uppercase tracking-wide">
             {notulensiPenandatangan.jabatan || `KEPALA DESA ${instansi.namaDesa.toUpperCase()}`}
           </p>
-          <div className="h-24"></div>
+          <div className="h-11"></div>
           <p className="font-bold uppercase tracking-wide">
             {notulensiPenandatangan.nama || instansi.namaKepalaDesa}
           </p>
@@ -294,7 +294,7 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
 
   if (isPrintPreview) {
     return (
-      <div className="document-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font" style={{ width: "100%" }}>
+      <div className="document-container notulensi-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font" style={{ width: "100%" }}>
         {renderDocumentContent()}
       </div>
     );
@@ -445,7 +445,7 @@ export const NotulensiDoc: React.FC<NotulensiDocProps> = ({
 
       {/* 2. RIGHT COLUMN: Preview Sheet */}
       <div className="lg:col-span-7 flex justify-center w-full">
-        <div className="document-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font shadow-md border border-gray-200 max-w-[210mm] min-h-[297mm]" style={{ width: "100%" }}>
+        <div className="document-container notulensi-container bg-white text-black font-sans text-[13px] leading-relaxed mx-auto document-font shadow-md border border-gray-200 max-w-[210mm] min-h-[297mm]" style={{ width: "100%" }}>
           {renderDocumentContent()}
         </div>
       </div>

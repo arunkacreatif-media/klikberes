@@ -1092,7 +1092,7 @@ export default function App() {
             >
               <div className="flex items-center gap-2.5">
                 <FileText size={15} className={activeTab === "dokumen-mandiri" && standaloneDocType === "undangan" ? "text-yellow-400" : "text-emerald-400"} />
-                BUAT UNDANGAN MANDIRI
+                BUAT UNDANGAN
               </div>
               <ChevronRight size={12} className="opacity-50" />
             </button>
@@ -1130,7 +1130,7 @@ export default function App() {
             >
               <div className="flex items-center gap-2.5">
                 <FileText size={15} className={activeTab === "dokumen-mandiri" && standaloneDocType === "tandaTerima" ? "text-yellow-400" : "text-emerald-400"} />
-                BUAT TRANSPORT MANDIRI
+                BUAT BANTRANS
               </div>
               <ChevronRight size={12} className="opacity-50" />
             </button>
@@ -1149,7 +1149,7 @@ export default function App() {
             >
               <div className="flex items-center gap-2.5">
                 <FileText size={15} className={activeTab === "dokumen-mandiri" && standaloneDocType === "notulensi" ? "text-yellow-400" : "text-emerald-400"} />
-                BUAT NOTULENSI MANDIRI
+                BUAT NOTULENSI
               </div>
               <ChevronRight size={12} className="opacity-50" />
             </button>
@@ -1902,15 +1902,15 @@ export default function App() {
             >
               <div className="pb-4 border-b border-gray-200">
                 <h2 className="text-2xl font-black tracking-tight text-slate-950">
-                  {standaloneDocType === "undangan" && "Buat Undangan Mandiri (Terpisah)"}
-                  {standaloneDocType === "daftarHadir" && "Buat Daftar Hadir Mandiri (Terpisah)"}
-                  {standaloneDocType === "tandaTerima" && "Buat Penerimaan Transport Mandiri (Terpisah)"}
-                  {standaloneDocType === "notulensi" && "Buat Notulensi Mandiri (Terpisah)"}
+                  {standaloneDocType === "undangan" && "Buat Undangan (Terpisah)"}
+                  {standaloneDocType === "daftarHadir" && "Buat Daftar Hadir (Terpisah)"}
+                  {standaloneDocType === "tandaTerima" && "Buat Bantrans (Terpisah)"}
+                  {standaloneDocType === "notulensi" && "Buat Notulensi (Terpisah)"}
                 </h2>
                 <p className="text-xs text-slate-500 font-medium font-sans">
                   {standaloneDocType === "undangan" && "Isi data pokok di bawah untuk menerbitkan dokumen Undangan saja secara mandiri tanpa bundling berkas lainnya."}
                   {standaloneDocType === "daftarHadir" && "Isi data pokok di bawah untuk menerbitkan dokumen Daftar Hadir saja secara mandiri tanpa bundling berkas lainnya."}
-                  {standaloneDocType === "tandaTerima" && "Isi data pokok di bawah untuk menerbitkan dokumen Penerimaan Transport saja secara mandiri tanpa bundling berkas lainnya."}
+                  {standaloneDocType === "tandaTerima" && "Isi data pokok di bawah untuk menerbitkan dokumen Uang Transport (Bantrans) saja secara mandiri tanpa bundling berkas lainnya."}
                   {standaloneDocType === "notulensi" && "Isi data pokok di bawah untuk menerbitkan dokumen Notulensi saja secara mandiri tanpa bundling berkas lainnya."}
                 </p>
               </div>
