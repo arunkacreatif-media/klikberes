@@ -15,6 +15,23 @@
     print-color-adjust: exact !important;
   }
 
+  /* Force all printed text inside document areas to pure black */
+  .print-area,
+  .print-area *,
+  .document-font,
+  .document-font *,
+  .document-container,
+  .document-container *,
+  .daftar-hadir-container,
+  .daftar-hadir-container *,
+  .tanda-terima-container,
+  .tanda-terima-container *,
+  .notulensi-container,
+  .notulensi-container * {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
   /* Override layouts to allow multi-page flow and disable flexbox */
   html, body, #root, #root > div {
     display: block !important;
